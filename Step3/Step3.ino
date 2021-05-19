@@ -68,7 +68,11 @@ const uint8_t SEG_BEEP[] = {
   SEG_A | SEG_D | SEG_E | SEG_F | SEG_G,                 // E
   SEG_A | SEG_B | SEG_E | SEG_F | SEG_G,                 // P
   };
-
+const uint8_t zero[] = {0, 0, 0, 0};
+const uint8_t one[] = {0xff, 0, 0, 0};
+const uint8_t two[] = {0xff, 0xff, 0, 0};
+const uint8_t three[] = {0xff, 0xff, 0xff, 0};
+const uint8_t four[] = {0xff, 0xff, 0xff, 0xff};
 // --------
 // Rotary Encoder
 // --------
@@ -131,23 +135,28 @@ void bar (uint8_t percent)
 //showNumberDec(14, false, 2, 1); // Expect: _14_
 //display.showNumberDec(4, true, 2, 2);  // Expect: __04
 //  display.showNumberDec(1, false); // Expect: ___1
-if (percent == 100) {
+  if (percent == 100) {
+  
+    //display.showNumberDec(8888, true);
+    display.setSegments(four);
+  }
+  else if ((percent >= 75)&&(percent < 100)) {
+  
+    //display.showNumberDec(888, false, 3, 0);
+    display.setSegments(three);
+  }
+  else if ((percent >= 50)&&(percent < 75)) {
+  
+    //display.showNumberDec(88, false, 2, 0);
+    display.setSegments(two);
+  }
+  else if ((percent >=25 )&&(percent < 50)) {
+  
+    //display.showNumberDec(8, false, 1, 0);
+    display.setSegments(one);
 
-  display.showNumberDec(8888, true);
-}
-else if (percent == 75) {
-
-  display.showNumberDec(888, false, 3, 0);
-}
-else if (percent == 50) {
-
-  display.showNumberDec(88, false, 2, 0);
-}
-else if (percent == 10) {
-
-  display.showNumberDec(8, false, 1, 0);
-}
-else display.clear();
+  }
+//  else display.clear();
   
 }
 
@@ -177,7 +186,6 @@ void loop()
   
   while(1)
   {
-//    if (i>100) i = 0;
 
     bar(progress);
 //    Serial.print("Time is ");
