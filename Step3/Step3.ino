@@ -69,10 +69,10 @@ const uint8_t SEG_BEEP[] = {
   SEG_A | SEG_B | SEG_E | SEG_F | SEG_G,                 // P
   };
 const uint8_t zero[] = {0, 0, 0, 0};
-const uint8_t one[] = {0xff, 0, 0, 0};
-const uint8_t two[] = {0xff, 0xff, 0, 0};
-const uint8_t three[] = {0xff, 0xff, 0xff, 0};
-const uint8_t four[] = {0xff, 0xff, 0xff, 0xff};
+const uint8_t one[] = {SEG_A | SEG_B | SEG_C | SEG_D | SEG_E | SEG_F, 0, 0, 0};
+const uint8_t two[] = {SEG_A | SEG_B | SEG_C | SEG_D | SEG_E | SEG_F, SEG_A | SEG_B | SEG_C | SEG_D | SEG_E | SEG_F, 0, 0};
+const uint8_t three[] = {SEG_A | SEG_B | SEG_C | SEG_D | SEG_E | SEG_F, SEG_A | SEG_B | SEG_C | SEG_D | SEG_E | SEG_F, SEG_A | SEG_B | SEG_C | SEG_D | SEG_E | SEG_F, 0};
+const uint8_t four[] = {SEG_A | SEG_B | SEG_C | SEG_D | SEG_E | SEG_F, SEG_A | SEG_B | SEG_C | SEG_D | SEG_E | SEG_F, SEG_A | SEG_B | SEG_C | SEG_D | SEG_E | SEG_F, SEG_A | SEG_B | SEG_C | SEG_D | SEG_E | SEG_F};
 // --------
 // Rotary Encoder
 // --------
@@ -156,7 +156,7 @@ void bar (uint8_t percent)
     display.setSegments(one);
 
   }
-//  else display.clear();
+  else display.setSegments(zero);
   
 }
 
@@ -179,7 +179,7 @@ void loop()
   unsigned char count = 0;
 //  delay(150);
   pixels.clear(); // Set all pixel colors to 'off'
-
+display.clear();
   //light white pixels set
   setAllPixels(pixels.Color(40, 40, 40));
   pixels.show();   // Send the updated pixel colors to the hardware.
